@@ -254,8 +254,19 @@ input:focus, select:focus {
     }
 
     function formatDOB(input) {
-      input.value = input.value.replace(/[^0-9]/g, '').replace(/(.{2})(.{2})(.{4})/, '$1/$2/$3');
-    }
+  let value = input.value.replace(/[^0-9]/g, ''); // Sirf numbers allow karo
+  
+  if (value.length > 2 && value.length <= 4) {
+    // Jaise hi DD complete hoga, ek slash add hoga
+    value = value.slice(0, 2) + '/' + value.slice(2);
+  } else if (value.length > 4) {
+    // Jaise hi MM complete hoga, doosra slash add hoga
+    value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4, 8);
+  }
+
+  input.value = value; // Formatted value set karo
+}
+
 
     function formatExpiry(input) {
       input.value = input.value.replace(/[^0-9]/g, '').replace(/(.{2})(.{2})/, '$1/$2');
